@@ -28,7 +28,7 @@ public class MyCglibService {
         return user;
     }
 
-    @Transactional(propagation = Propagation.NESTED)
+    @Transactional(propagation = Propagation.NEVER)
     public User saveUserWithInverseName(String name) {
         return UserUtils.saveUserWithInverseName(name, userRepository);
     }
