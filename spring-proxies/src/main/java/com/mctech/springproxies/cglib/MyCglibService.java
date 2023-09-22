@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class MyCglibService {
 
     @Transactional
     public User saveUser(String name, boolean external) {
+        assert TransactionSynchronizationManager.isActualTransactionActive();
         User user = userRepository.save(new User().setName(name));
         if (external) {
             externalDynamicProxy.saveUserWithInverseName(name);

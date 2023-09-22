@@ -40,7 +40,7 @@ class SpringProxiesApplicationTests {
     }
 
     @Test
-    void dynamicProxyDoesntCreateTransactionOnInternalCall() {
+    void givenDynamicProxy_whenSelfInvocation_thenNoNewTransactionCreated() {
         String randomName = RandomString.make(5);
         String reversed = UserUtils.getReversed(randomName);
         boolean internalTransactionCall = false;
@@ -53,7 +53,7 @@ class SpringProxiesApplicationTests {
     }
 
     @Test
-    void dynamicProxyDoesCreateTransactionOnInternalCall() {
+    void givenDynamicProxy_whenExternalInvocation_thenTransactionCreated() {
         String randomName = RandomString.make(5);
         String reversed = UserUtils.getReversed(randomName);
         boolean externalTransactionCall = true;
@@ -65,7 +65,7 @@ class SpringProxiesApplicationTests {
     }
 
     @Test
-    void cglibProxyHappyCase() {
+    void givenCglibProxy_whenSelfInvocation_thenNoNewTransactionCreated() {
         String randomName = RandomString.make(5);
         String reversed = UserUtils.getReversed(randomName);
         boolean internalTransactionCall = false;
@@ -78,7 +78,7 @@ class SpringProxiesApplicationTests {
     }
 
     @Test
-    void dynamicProxySelfInvocationDoesNotTriggerTransaction() {
+    void givenCglibProxy_whenExternalInvocation_thenTransactionCreated() {
         String randomName = RandomString.make(5);
         String reversed = UserUtils.getReversed(randomName);
         boolean externalTransactionCall = true;
